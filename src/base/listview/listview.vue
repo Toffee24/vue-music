@@ -81,17 +81,20 @@
       onShortcutTouchStart(e) {
         let anchorIndex = getData(e.target, 'index')
         let firstTouch = e.touches[0]
-        this.touch.y1 = firstTouch.pageY
+        this.touch.y1 = firstTouch.clientY
+        // console.log('y1:'+this.touch.y1)
         this.touch.anchorIndex = anchorIndex
-
+        this.currentIndex = anchorIndex
         this._scrollTo(anchorIndex)
       },
       onShortcutTouchMove(e) {
         let firstTouch = e.touches[0]
-        this.touch.y2 = firstTouch.pageY
+        this.touch.y2 = firstTouch.clientY
+        // console.log( 'y2:'+this.touch.y2)
         let delta = (this.touch.y2 - this.touch.y1) / ANCHOR_HEIGHT | 0
         let anchorIndex = parseInt(this.touch.anchorIndex) + delta
-
+        // console.log(anchorIndex)
+        this.currentIndex = anchorIndex
         this._scrollTo(anchorIndex)
       },
       refresh() {
@@ -112,16 +115,21 @@
         }
       },
       _scrollTo(index) {
-        if (!index && index !== 0) {
+        if(index < 0 || index > 22){
           return
         }
-        if (index < 0) {
-          index = 0
-        } else if (index > this.listHeight.length - 2) {
-          index = this.listHeight.length - 2
-        }
-        this.scrollY = -this.listHeight[index]
-        this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
+        // if (!index && index !== 0) {
+        //   return
+        // }
+        // if (index < 0) {
+        //   index = 0
+        // } else if (index > this.listHeight.length - 2) {
+        //   index = this.listHeight.length - 2
+        // }
+        // this.scrollY = -this.listHeight[index]
+        let top = this.$refs.listGroup[index].offsetTop
+        // this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
+        window.scrollTo(0,top)
       }
     },
     watch: {
@@ -157,6 +165,14 @@
         }
         this.fixedTop = fixedTop
         this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
+      },
+      currentIndex(val){
+        if(val < 0){
+          this.currentIndex = 0
+        }
+        if(val > 22){
+          this.currentIndex =22
+        }
       }
     },
     components: {

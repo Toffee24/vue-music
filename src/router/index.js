@@ -19,7 +19,11 @@ export default new Router({
     },
     {
       path:'/singer',
-      component:resolve => require(['components/singer/singer.vue'],resolve)
+      component:resolve => require(['components/singer/singer.vue'],resolve),
+      children:[{
+        path:':id',
+        component:resolve => require(['components/singer-detail/singer-detail.vue'],resolve)
+      }]
     },
     {
       path:'/search',
