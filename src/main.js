@@ -14,8 +14,8 @@ fastclick.attach(document.body)
 Vue.config.productionTip = false
 fastclick.attach(document.body)
 Vue.prototype.ajaxRequest = instance
-Vue.use(VueLazyload,{
-  loading:require('common/image/default.png')
+Vue.use(VueLazyload, {
+  loading: require('common/image/default.png')
 })
 
 /* eslint-disable no-new */
@@ -23,5 +23,5 @@ new Vue({
   router,
   store,
   el: '#app',
-  render:h=>h(App)
+  render: h => h(App)
 })
