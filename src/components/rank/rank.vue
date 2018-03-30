@@ -1,12 +1,16 @@
-'<template>
+<template>
   <div>
 
   </div>
 </template>
 
 <script>
-  export default {
+  import {getLyric} from 'api/song.js'
 
+  export default {
+    created() {
+
+    }
   }
 </script>
 

@@ -12,7 +12,7 @@ let baseParam = {
 }
 
 function axiosRequest(url,data) {
-  let params = Object.assign({},data,baseParam)
+  let params = Object.assign({}, baseParam, data)
   return new Promise((resolve,reject)=>{
     axios.get(url,{
       params:params

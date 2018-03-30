@@ -29,9 +29,10 @@
 <script>
   import Scroll from 'base/scroll/scroll'
   import SongList from 'base/song-list/song-list'
-  import {prefixStyle} from "common/js/dom";
+  import {prefixStyle} from "common/js/dom"
   import Loading from 'base/loading/loading'
   import {mapActions} from 'vuex'
+  import {playListMixin} from "common/js/mixin"
 
   const RESERVED_HEIGHT = 40
   const transform = prefixStyle('transform')
@@ -39,6 +40,7 @@
 
   export default {
     name: "music-list",
+    mixins: [playListMixin],
     created() {
       this.probeType = 3
       this.listenScroll = true
@@ -98,6 +100,11 @@
         this.randomPlay({
           list: this.songs
         })
+      },
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.list.$el.style.bottom = bottom
+        this.$refs.list.refresh()
       }
     },
     watch: {
