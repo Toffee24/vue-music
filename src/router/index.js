@@ -36,7 +36,11 @@ export default new Router({
     },
     {
       path: '/search',
-      component: resolve => require(['components/search/search.vue'], resolve)
+      component: resolve => require(['components/search/search.vue'], resolve),
+      children: [{
+        path: ':id',
+        component: resolve => require(['components/singer-detail/singer-detail.vue'], resolve)
+      }]
     }
   ]
 })
